@@ -11,7 +11,7 @@ import pygame
 import io
 
 # ElevenLabs API configuration
-ELEVENLABS_API_KEY = "sk_69076cbdc3ab67d61b0732fea381519419803d549eb29f9d" 
+ELEVENLABS_API_KEY = "*********************" # Cant Show API
 RACHEL_VOICE_ID = "21m00Tcm4TlvDq8ikWAM"
 
 # Initializing pygame for audio playback
@@ -177,3 +177,4 @@ if __name__ == "__main__":
             speak("Goodbye Sir, have a great day!")
             print("Assistant Stopped.")
             break
+
