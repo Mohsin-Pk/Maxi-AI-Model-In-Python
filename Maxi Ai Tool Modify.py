@@ -92,7 +92,7 @@ def takeCommand():
     with sr.Microphone(device_index=2) as source:
         print("Listening...")
 
-        # IMPROVEMENT number 1 :  Noise reduction
+        # IMPROVEMENT  number  : Adjust microphone for background noise
         r.adjust_for_ambient_noise(source, duration=0.5)
 
         r.pause_threshold = 1
@@ -127,6 +127,24 @@ def takeCommand():
         return "None"
 
     return query
+
+
+def calculate(expression):
+    try:
+        # IMPROVEMENT number 22  Added safe arithmetic calculator
+        allowed = "0123456789+-*/(). "
+
+        if all(char in allowed for char in expression):
+            result = eval(expression)
+
+            print(f"Result: {result}")
+            speak(f"The answer is {result}")
+
+        else:
+            speak("Sorry, I can only calculate basic arithmetic.")
+
+    except:
+        speak("Sorry, I could not calculate that.")
 
 
 def sendEmail(to, content):
@@ -230,6 +248,15 @@ if __name__ == "__main__":
 
             print(str_time)
 
+        elif "calculate" in query:
+
+            expression = query.replace(
+                "calculate",
+                ""
+            ).strip()
+
+            calculate(expression)
+
         elif "play my playlist" in query:
 
             speak(
@@ -265,7 +292,7 @@ if __name__ == "__main__":
 
                 content = takeCommand()
 
-                # IMPROVEMENT number 2 Confirmation before sending email
+                # IMPROVEMENT number 3 Confirm before sending email
                 speak(
                     f"You said: {content}. "
                     "Should I send this email?"
@@ -273,7 +300,10 @@ if __name__ == "__main__":
 
                 confirmation = takeCommand().lower()
 
-                if "yes" in confirmation or "send" in confirmation:
+                if (
+                    "yes" in confirmation
+                    or "send" in confirmation
+                ):
 
                     to = "pokerfire631@gmail.com"
 
